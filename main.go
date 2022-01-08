@@ -67,4 +67,15 @@ func main() {
 	a = 5
 	*b = 20
 	fmt.Println(a, &a, b, &b, *b)
+
+	// Array
+	names:= [5]string{"nico", "lynn", "dal"}
+	names[3] = "lalala"
+	names[4] = "llalalala"
+	fmt.Println(names)
+
+	// Slice
+	newNames := []string{"nico", "lynn", "dal"}
+	// Append 는 새로운 slice를 return 한다.
+	newNames = append(newNames, "flynn")
 }
