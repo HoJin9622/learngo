@@ -54,6 +54,12 @@ func canIDrink(age int) bool {
 	return false
 }
 
+type person struct {
+	name string
+	age int
+	favFood []string
+}
+
 func main() {
 	repeatMe("hi", "bye", "hello", "yo")
 	totalLength, up := lenAndUpper("hojin")
@@ -68,13 +74,13 @@ func main() {
 	*b = 20
 	fmt.Println(a, &a, b, &b, *b)
 
-	// Data Structure Array
+	// Array
 	names:= [5]string{"nico", "lynn", "dal"}
 	names[3] = "lalala"
 	names[4] = "llalalala"
 	fmt.Println(names)
 
-	// Data Structure Slice
+	// Slice
 	newNames := []string{"nico", "lynn", "dal"}
 	// Append 는 새로운 slice를 return 한다.
 	newNames = append(newNames, "flynn")
@@ -85,4 +91,13 @@ func main() {
 	for key, value := range nico {
 		fmt.Println(key, value)
 	}
+
+	// Struct
+	favFood:= []string{"kimchi", "ramen"}
+	// hojin := person{"name", 18, favFood}
+	hojin := person{name: "hojin", age: 18, favFood: favFood}
+	fmt.Println(hojin)
+
+	// go에는 Class도 없다.
+	// go에는 constructor가 없다. javascript에서는 constructor, pyton에서는 __init__
 }
