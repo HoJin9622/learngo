@@ -61,4 +61,10 @@ func main() {
 	result := superAdd(1, 2, 3, 4, 5, 6)
 	fmt.Println(result)
 	fmt.Println(canIDrink((15)))
+
+	a := 2
+	b := &a
+	a = 5
+	*b = 20
+	fmt.Println(a, &a, b, &b, *b)
 }
