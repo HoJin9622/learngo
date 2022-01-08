@@ -68,14 +68,21 @@ func main() {
 	*b = 20
 	fmt.Println(a, &a, b, &b, *b)
 
-	// Array
+	// Data Structure Array
 	names:= [5]string{"nico", "lynn", "dal"}
 	names[3] = "lalala"
 	names[4] = "llalalala"
 	fmt.Println(names)
 
-	// Slice
+	// Data Structure Slice
 	newNames := []string{"nico", "lynn", "dal"}
 	// Append 는 새로운 slice를 return 한다.
 	newNames = append(newNames, "flynn")
+
+	// Map
+	nico := map[string]string{"name": "nico", "age": "12"}
+	fmt.Println(nico)
+	for key, value := range nico {
+		fmt.Println(key, value)
+	}
 }
