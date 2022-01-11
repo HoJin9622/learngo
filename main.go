@@ -106,4 +106,6 @@ func main() {
 
 	account := accounts.NewAccount("hojin")
 	fmt.Println(account)
+	account.Deposit(10)
+	fmt.Println(account.Balance())
 }
