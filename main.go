@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"github.com/HoJin9622/learngo/accounts"
 )
 
 // 상수 - 변경 불가능
@@ -100,4 +102,8 @@ func main() {
 
 	// go에는 Class도 없다.
 	// go에는 constructor가 없다. javascript에서는 constructor, pyton에서는 __init__
+
+
+	account := accounts.NewAccount("hojin")
+	fmt.Println(account)
 }
