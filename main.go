@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/HoJin9622/learngo/accounts"
+	"github.com/HoJin9622/learngo/mydict"
 )
 
 // 상수 - 변경 불가능
@@ -113,4 +114,12 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(account)
+
+	dictionary := mydict.Dictionary{"first": "First word"}
+	definition, err := dictionary.Search("first")	
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(definition)
+	}
 }
