@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/HoJin9622/learngo/accounts"
 	"github.com/HoJin9622/learngo/mydict"
 )
 
@@ -105,21 +104,33 @@ func main() {
 	// go에는 constructor가 없다. javascript에서는 constructor, pyton에서는 __init__
 
 
-	account := accounts.NewAccount("hojin")
-	fmt.Println(account)
-	account.Deposit(10)
-	err := account.Withdraw(20)
-	if err != nil {
-		// log.Fatalln(err)
-		fmt.Println(err)
-	}
-	fmt.Println(account)
+	// account := accounts.NewAccount("hojin")
+	// fmt.Println(account)
+	// account.Deposit(10)
+	// err := account.Withdraw(20)
+	// if err != nil {
+	// 	// log.Fatalln(err)
+	// 	fmt.Println(err)
+	// }
+	// fmt.Println(account)
 
 	dictionary := mydict.Dictionary{"first": "First word"}
-	definition, err := dictionary.Search("first")	
+	// definition, err := dictionary.Search("first")	
+	// if err != nil {
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Println(definition)
+	// }
+	word := "hello"
+	definition := "Greeting"
+	err := dictionary.Add(word, definition)
 	if err != nil {
 		fmt.Println(err)
-	} else {
-		fmt.Println(definition)
+	}
+	hello, _ := dictionary.Search(word)
+	fmt.Println("found", word, "definition: ", hello)
+	err2 := dictionary.Add(word, definition)
+	if err2 != nil {
+		fmt.Println(err2)
 	}
 }
