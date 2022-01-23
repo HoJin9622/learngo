@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-type result struct {
+type requestResult struct {
 	url    string
 	status string
 }
 
 func main() {
 	results := make(map[string]string)
-	c := make(chan result)
+	c := make(chan requestResult)
 	urls := []string{
 		"https://www.airbnb.com/",
 		"https://www.google.com/",
@@ -27,15 +27,22 @@ func main() {
 	for _, url := range urls {
 		go hitURL(url, c)
 	}
+	for i := 0; i < len(urls); i++ {
+		result := <-c
+		results[result.url] = result.status
+	}
+
+	for url, status := range results {
+		fmt.Println(url, status)
+	}
 }
 
-// chan<- result 처럼 매개변수에 <- 를 작성해주면 이 채널을 send only로 만 사용한다는 뜻이다.
-func hitURL(url string, c chan<- result) {
-	fmt.Println("Checking:", url)
+// chan<- requestResult 처럼 매개변수에 <- 를 작성해주면 이 채널을 send only로 만 사용한다는 뜻이다.
+func hitURL(url string, c chan<- requestResult) {
 	resp, err := http.Get(url)
 	status := "OK"
 	if err != nil || resp.StatusCode >= 400 {
 		status = "FAILED"
 	}
-	c <- result{url: url, status: status}
+	c <- requestResult{url: url, status: status}
 }
