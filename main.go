@@ -1,60 +1,41 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
-	"time"
 )
 
-var errReqeustFailed = errors.New("Request Failed")
+type result struct {
+	url    string
+	status string
+}
 
 func main() {
-	// var results = make(map[string]string)
-	// urls := []string{
-	// 	"https://www.airbnb.com/",
-	// 	"https://www.google.com/",
-	// 	"https://www.amazon.com/",
-	// 	"https://www.reddit.com/",
-	// 	"https://www.google.com/",
-	// 	"https://soundcloud.com/",
-	// 	"https://www.facebook.com/",
-	// 	"https://www.instagram.com/",
-	// 	"https://academy.nomadcoders.co/",
-	// }
-	// for _, url := range urls {
-	// 	result := "OK"
-	// 	err := hitURL(url)
-	// 	if err != nil {
-	// 		result = "FAIL"
-	// 	}
-	// 	results[url] = result
-	// }
-	// for url, result := range results {
-	// 	fmt.Println(url, result)
-	// }
-	c := make(chan string)
-	people := [5]string{"nico", "flynn", "dal", "japanguy", "larry"}
-	for _, person := range people {
-		go isSexy(person, c)
+	results := make(map[string]string)
+	c := make(chan result)
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://www.google.com/",
+		"https://soundcloud.com/",
+		"https://www.facebook.com/",
+		"https://www.instagram.com/",
+		"https://academy.nomadcoders.co/",
 	}
-	for i := 0; i < len(people); i++ {
-		fmt.Print("waiting for", i)
-		fmt.Println(<-c)
+	for _, url := range urls {
+		go hitURL(url, c)
 	}
 }
 
-func hitURL(url string) error {
+// chan<- result 처럼 매개변수에 <- 를 작성해주면 이 채널을 send only로 만 사용한다는 뜻이다.
+func hitURL(url string, c chan<- result) {
 	fmt.Println("Checking:", url)
 	resp, err := http.Get(url)
+	status := "OK"
 	if err != nil || resp.StatusCode >= 400 {
-		fmt.Println(err, resp.StatusCode)
-		return errReqeustFailed
+		status = "FAILED"
 	}
-	return nil
-}
-
-func isSexy(person string, c chan string) {
-	time.Sleep(time.Second * 10)
-	c <- person + " is sexy"
+	c <- result{url: url, status: status}
 }
