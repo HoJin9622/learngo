@@ -7,7 +7,7 @@ import (
 
 // Account struct
 type Account struct {
-	owner 	string
+	owner   string
 	balance int
 }
 
